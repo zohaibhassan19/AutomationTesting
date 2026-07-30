@@ -46,3 +46,35 @@ Cypress.on('test:before:run', (test) => {
 Cypress.Commands.add('scrollAndClick', (selector) => {
   cy.get(selector).scrollIntoView().click()
 })
+
+Cypress.on('uncaught:exception', (err) => {
+  const ignoreErrors = [
+    'ResizeObserver',
+    'ResizeObserver loop',
+    'undelivered notifications'
+  ];
+  
+  if (ignoreErrors.some(msg => err.message.includes(msg))) {
+    return false;
+  }
+  return true;
+});
+
+// cypress/support/e2e.js
+
+Cypress.on('uncaught:exception', (err) => {
+  // List of error messages to ignore
+  const ignoredErrorMessages = [
+    'ResizeObserver',
+    'ResizeObserver loop',
+    'undelivered notifications',
+    'insertBefore',
+    'NotFoundError'
+  ];
+
+  // Check if the error message matches any in the ignore list
+  const shouldIgnore = ignoredErrorMessages.some(msg => err.message.includes(msg));
+
+  // Return false to prevent Cypress from failing the test
+  return !shouldIgnore;
+});

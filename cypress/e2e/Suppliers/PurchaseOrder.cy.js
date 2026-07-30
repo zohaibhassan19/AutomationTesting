@@ -1,12 +1,6 @@
 describe('Suppliers',()=>{
    
      // Creating Random data    
-     const randomName = Array.from({length: 6}, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join('')
-     const randomArabicName = Array.from({length: 6}, () => String.fromCharCode(0x0621 + Math.floor(Math.random() * 28))).join('')
-     const randomEmail = `test_${Math.random().toString(36).substring(2, 8)}@gmail.com`;
-     const randomTaxNumber = `Tax_${Math.random().toString(36).substring(2, 4)}`;
-     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-     const randomcode = Array.from({length:5}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
      const length = Math.floor(Math.random() * 13) + 5; // 5 to 17
      const min = Math.pow(10, length - 1);
      const max = Math.pow(10, length) - 1;
