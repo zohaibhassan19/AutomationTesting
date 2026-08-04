@@ -1,7 +1,4 @@
 describe("Stations", () => {
-  // Creating Random data
-  const randomName = `Group-${Math.random().toString(36).substring(2, 3).toUpperCase()}`;
-  const randomArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28))).join("");
 
   it("Create Stock Transfer", () => {
     // Call login Function
