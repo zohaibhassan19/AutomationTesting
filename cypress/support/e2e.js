@@ -14,47 +14,46 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
 // 1. Hide fetch/XHR requests from command log (cleaner logs)
-const app = window.top
-if (!app.document.head.querySelector('[data-hide-command-log-request]')) {
-  const style = app.document.createElement('style')
-  style.innerHTML = '.command-name-request, .command-name-xhr { display: none }'
-  style.setAttribute('data-hide-command-log-request', '')
-  app.document.head.appendChild(style)
+const app = window.top;
+if (!app.document.head.querySelector("[data-hide-command-log-request]")) {
+  const style = app.document.createElement("style");
+  style.innerHTML =
+    ".command-name-request, .command-name-xhr { display: none }";
+  style.setAttribute("data-hide-command-log-request", "");
+  app.document.head.appendChild(style);
 }
 
-
-
 // 2. Ignore uncaught exceptions
-Cypress.on('uncaught:exception', (err, runnable) => {
-  return false
-})
+Cypress.on("uncaught:exception", (err, runnable) => {
+  return false;
+});
 
-Cypress.on('uncaught:exception', (err, runnable) => {
-  if (err.message.includes('did not return a valid number')) {
-    return false // prevents Cypress from failing/reloading on this error
+Cypress.on("uncaught:exception", (err, runnable) => {
+  if (err.message.includes("did not return a valid number")) {
+    return false; // prevents Cypress from failing/reloading on this error
   }
-  return true // let all other uncaught exceptions fail tests as normal
-})
+  return true; // let all other uncaught exceptions fail tests as normal
+});
 
 // 3. Print test name in console
-Cypress.on('test:before:run', (test) => {
-  console.log('Running test:', test.title)
-})
+Cypress.on("test:before:run", (test) => {
+  console.log("Running test:", test.title);
+});
 // 4. Scroll and click
-Cypress.Commands.add('scrollAndClick', (selector) => {
-  cy.get(selector).scrollIntoView().click()
-})
+Cypress.Commands.add("scrollAndClick", (selector) => {
+  cy.get(selector).scrollIntoView().click();
+});
 
-Cypress.on('uncaught:exception', (err) => {
+Cypress.on("uncaught:exception", (err) => {
   const ignoreErrors = [
-    'ResizeObserver',
-    'ResizeObserver loop',
-    'undelivered notifications'
+    "ResizeObserver",
+    "ResizeObserver loop",
+    "undelivered notifications",
   ];
-  
-  if (ignoreErrors.some(msg => err.message.includes(msg))) {
+
+  if (ignoreErrors.some((msg) => err.message.includes(msg))) {
     return false;
   }
   return true;
@@ -62,18 +61,20 @@ Cypress.on('uncaught:exception', (err) => {
 
 // cypress/support/e2e.js
 
-Cypress.on('uncaught:exception', (err) => {
+Cypress.on("uncaught:exception", (err) => {
   // List of error messages to ignore
   const ignoredErrorMessages = [
-    'ResizeObserver',
-    'ResizeObserver loop',
-    'undelivered notifications',
-    'insertBefore',
-    'NotFoundError'
+    "ResizeObserver",
+    "ResizeObserver loop",
+    "undelivered notifications",
+    "insertBefore",
+    "NotFoundError",
   ];
 
   // Check if the error message matches any in the ignore list
-  const shouldIgnore = ignoredErrorMessages.some(msg => err.message.includes(msg));
+  const shouldIgnore = ignoredErrorMessages.some((msg) =>
+    err.message.includes(msg),
+  );
 
   // Return false to prevent Cypress from failing the test
   return !shouldIgnore;
