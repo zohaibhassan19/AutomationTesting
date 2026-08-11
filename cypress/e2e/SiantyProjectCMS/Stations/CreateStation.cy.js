@@ -1,15 +1,9 @@
 describe("Stations", () => {
   // Creating Random data
   const randomName = `Station-${Math.random().toString(36).substring(2, 3).toUpperCase()}`;
-  const randomNumber = Math.floor(
-    Math.random() * 9000000000 + 1000000000,
-  ).toString();
-  const randomNumber1 = Math.floor(
-    Math.random() * 9000000000 + 1000000000,
-  ).toString();
-  const randomArabicName = Array.from({ length: 6 }, () =>
-    String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),
-  ).join("");
+  const randomNumber = Math.floor( Math.random() * 9000000000 + 1000000000,).toString();
+  const randomNumber1 = Math.floor(Math.random() * 9000000000 + 1000000000,).toString();
+  const randomArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
   const email = `test_${Date.now()}@email.com`;
   const stationCode = `STN-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
 
@@ -41,20 +35,27 @@ describe("Stations", () => {
 
     // Submit form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+    cy.wait(2000)
 
-    cy.get("#importfile > input").selectFile("cypress/fixtures/download23.png");
+    cy.get("#importfile > input").selectFile("cypress/fixtures/PNG Logo.png");
     cy.get("#form > .MuiButtonBase-root").click();
 
-    // Delete method
+     // =============== Status change & Delete method ========================= //
+    
     cy.get("#styled-input").type(randomName);
     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
 
-    cy.get(
-      ":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",
-    ).click({ force: true });
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+    cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",).click({ force: true });
     cy.contains("Delete").click({ force: true });
-    cy.get(".MuiDialogActions-root > .MuiButton-contained").click({
-      force: true,
-    });
+    cy.get(".MuiDialogActions-root > .MuiButton-contained").click({force: true,});
+
   });
 });

@@ -4,7 +4,7 @@ describe("General", () => {
   const randomNumber = Math.floor(Math.random() * 9000000000 + 1000000000,).toString();
   const randomArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
   const randomEmail = `${Array.from({ length: 8 }, () => String.fromCharCode(97 + Math.floor(Math.random() * 26))).join("")}@email.com`;
-  const randomName = Array.from({ length: 6 }, () =>String.fromCharCode(65 + Math.floor(Math.random() * 26)),).join("");
+  const randomName = `User${Array.from({ length: 4 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
   const randompassword = Array.from(
     { length: 9 },
     () =>
@@ -48,5 +48,22 @@ describe("General", () => {
 
     // Submit form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+
+    // =============== Status change & Delete method ========================= //
+    
+    cy.get("#styled-input").type(randomName);
+    cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+    cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",).click({ force: true });
+    cy.contains("Delete").click({ force: true });
+    cy.get(".MuiDialogActions-root > .MuiButton-contained").click({force: true,});
   });
 });

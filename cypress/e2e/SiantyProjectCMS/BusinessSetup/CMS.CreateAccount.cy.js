@@ -51,5 +51,6 @@ describe("Create Account", () => {
 
     // Verify by navigating back to accounts list
     AccountsPage.visit();
+    
   });
 });

@@ -1,16 +1,16 @@
 describe("Customers", () => {
 
   // Creating Random data
-  const randomName = Array.from({ length: 6 }, () =>String.fromCharCode(65 + Math.floor(Math.random() * 26)),).join("");
-  const randomCompanyName = Array.from({ length: 6 }, () =>String.fromCharCode(65 + Math.floor(Math.random() * 26)),).join("");
-  const randomArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
+  const randomName = Array.from({ length: 4 }, () =>String.fromCharCode(65 + Math.floor(Math.random() * 26)),).join("");
+  const randomCompanyName = Array.from({ length: 4 }, () =>String.fromCharCode(65 + Math.floor(Math.random() * 26)),).join("");
+  const randomArabicName = Array.from({ length: 4 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
   const randomCompanyArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
-  const randomEmail = `test_${Math.random().toString(36).substring(2, 8)}@gmail.com`;
-  const randomCompanyEmail = `test_${Math.random().toString(36).substring(2, 8)}@gmail.com`;
+  const randomEmail = `test_${Math.random().toString(36).substring(2, 3)}@gmail.com`;
+  const randomCompanyEmail = `test_${Math.random().toString(36).substring(2, 3)}@gmail.com`;
   const chars ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
   const password = Array.from({ length: 12 },() => chars[Math.floor(Math.random() * chars.length)],).join("");
 
-  it("Create Individual Customers", () => {
+  it.only("Create Individual Customers", () => {
     // Call login Function
     cy.loginCMS();
     cy.wait(400);
@@ -47,9 +47,15 @@ describe("Customers", () => {
     cy.get("#styled-input").type(randomName);
     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
 
-    cy.get(
-      ":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",
-    ).click({ force: true });
+    cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+    cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button").click({ force: true });
     cy.contains("Delete").click({ force: true });
     cy.get(".MuiDialogActions-root > .MuiButton-contained").click({
       force: true,
@@ -58,7 +64,7 @@ describe("Customers", () => {
 
   // ================================================================================================================= //
 
-  it.only("Create Client", () => {
+  it("Create Client", () => {
     // Call login Function
     cy.loginCMS();
     cy.wait(400);
@@ -116,12 +122,23 @@ describe("Customers", () => {
     // Submit Form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
 
-    // Delete method
+    // Status change & Delete method
     cy.get("#styled-input").type(randomName);
     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
 
+     cy.get('.text-green-500.cursor-pointer') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
     cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",).click({ force: true });
     cy.contains("Delete").click({ force: true });
-    cy.get(".MuiDialogActions-root > .MuiButton-contained").click({force: true});
+    cy.get(".MuiDialogActions-root > .MuiButton-contained").click({force: true,});
   });
-});
+})
+
+
+

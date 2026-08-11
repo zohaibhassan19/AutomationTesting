@@ -1,7 +1,7 @@
 describe("Items", () => {
   // Creating Random data
 
-  const randomName = Array.from({ length: 6 }, () =>String.fromCharCode(65 + Math.floor(Math.random() * 26)),).join("");
+  const randomName = `Part${Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
   const randomNumber = Math.floor(Math.random() * 9000000000 + 1000000000,).toString();
   const randomArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
 
@@ -30,6 +30,14 @@ describe("Items", () => {
       .first()
       .click();
     cy.get('[class*="-option"]').eq(1).click();
+
+    //  Part category dropdown 
+    cy.contains("Part Category *")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click();
+    cy.get('[class*="-option"]').eq(2).click();
 
     cy.get('[name="itemCode"]').type(randomNumber);
     cy.get('[name="title"]').type(randomName);
@@ -82,9 +90,27 @@ describe("Items", () => {
     cy.get('[name="storeItems[0].stockQuantity"]').type(100);
 
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+
+    // =============== Status change & Delete method ========================= //
+    
+    cy.get("#styled-input").type(randomName);
+    cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+    cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",).click({ force: true });
+    cy.contains("Delete").click({ force: true });
+    cy.get(".MuiDialogActions-root > .MuiButton-contained").click({force: true,});
+
   });
 
-  // ===================================================================================================================  //
+  // ============================================= Fixed Asset ==============================================================  //
 
   it("Create part for fixed asset", () => {
     // Call login Function
@@ -111,6 +137,14 @@ describe("Items", () => {
       .first()
       .click();
     cy.get('[class*="-option"]').eq(0).click();
+
+    //  Part category dropdown 
+    cy.contains("Part Category *")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click();
+    cy.get('[class*="-option"]').eq(2).click();
 
     cy.get('[name="itemCode"]').type(randomNumber);
     cy.get('[name="title"]').type(randomName);
@@ -146,9 +180,26 @@ describe("Items", () => {
 
     // Submit Frrm
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+
+    // =============== Status change & Delete method ========================= //
+    
+    cy.get("#styled-input").type(randomName);
+    cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+    cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",).click({ force: true });
+    cy.contains("Delete").click({ force: true });
+    cy.get(".MuiDialogActions-root > .MuiButton-contained").click({force: true,});
   });
 
-  // ====================================================================================================================== //
+  // =========================================== Spot Purchase ============================================================= //
 
   it.only("Create Spot Purchase Parts", () => {
     // Call login Function
@@ -170,6 +221,14 @@ describe("Items", () => {
     //  Category dropdown
 
     cy.contains("Category *")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click();
+    cy.get('[class*="-option"]').eq(2).click();
+
+    //  Part category dropdown 
+    cy.contains("Part Category *")
       .closest(".commonSelect")
       .find("input")
       .first()
@@ -202,5 +261,23 @@ describe("Items", () => {
 
     // Submit Form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+
+    // =============== Status change & Delete method ========================= //
+    
+    cy.get("#styled-input").type(randomName);
+    cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+    cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",).click({ force: true });
+    cy.contains("Delete").click({ force: true });
+    cy.get(".MuiDialogActions-root > .MuiButton-contained").click({force: true,});
+
   });
 });

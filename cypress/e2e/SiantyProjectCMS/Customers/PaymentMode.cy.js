@@ -22,12 +22,21 @@ describe("Customers", () => {
     // Submit Form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
 
-    // Delete method
+    // Status change & Delete method
     cy.get("#styled-input").type(randomTitle);
     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
+
+     cy.get('.text-green-500.cursor-pointer') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
 
     cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",).click({ force: true });
     cy.contains("Delete").click({ force: true });
     cy.get(".MuiDialogActions-root > .MuiButton-contained").click({force: true,});
+    
   });
 });

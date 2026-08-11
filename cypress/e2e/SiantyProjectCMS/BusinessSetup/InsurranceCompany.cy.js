@@ -1,10 +1,10 @@
 describe("Business", () => {
 
   // Creating Random data
-  const randomTitle = Array.from({ length: 6 }, () =>String.fromCharCode(65 + Math.floor(Math.random() * 26)),).join("");
+  const randomInsuranceCompany = `${Array.from({ length: 4 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")} Insurance Co.`;
   const randomArabicTitle = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
-  const randomEmail = `${Array.from({ length: 8 }, () => String.fromCharCode(97 + Math.floor(Math.random() * 26))).join("")}@example.com`;
-  const randomName = Array.from({ length: 6 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26)),).join("");
+  const randomEmail = `${Array.from({ length: 3 }, () => String.fromCharCode(97 + Math.floor(Math.random() * 26))).join("")}@example.com`;
+  const randomInsuranceUserName = `user_${Array.from({ length: 3 }, () => String.fromCharCode(97 + Math.floor(Math.random() * 26))).join("")}`;
   const randomTradeNumber = Math.floor(Math.random() * 9000000000 + 1000000000,).toString();
 
   it("Create Insurance Company", () => {
@@ -18,11 +18,11 @@ describe("Business", () => {
     cy.get(".flex > div > .MuiButtonBase-root").click({ force: true });
 
     // fill form
-    cy.get('[name="title"]').type(randomTitle);
+    cy.get('[name="title"]').type(randomInsuranceCompany);
     cy.get('[name="secondaryTitle"]').type(randomArabicTitle);
     cy.get('[name="email"]').type(randomEmail);
     cy.get('[name="tradeLicenseNumber"]').type(randomTradeNumber);
-    cy.get('[name="insuranceUserRequest.name"]').type(randomName);
+    cy.get('[name="insuranceUserRequest.name"]').type(randomInsuranceUserName);
 
     // Open dropdown
     cy.contains("Price List *")
@@ -44,5 +44,22 @@ describe("Business", () => {
 
     // Submit form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+
+    // =============== Status change & Delete method ========================= //
+    
+    cy.get("#styled-input").type(randomInsuranceCompany);
+    cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+    cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",).click({ force: true });
+    cy.contains("Delete").click({ force: true });
+    cy.get(".MuiDialogActions-root > .MuiButton-contained").click({force: true,});
   });
 });

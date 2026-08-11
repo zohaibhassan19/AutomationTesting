@@ -29,8 +29,8 @@ Cypress.Commands.add("loginCMS", () => {
   cy.clearLocalStorage();
   cy.wait(500);
   cy.visit("http://dev2.sianty.com/login");
-  cy.get('[name="email"]').type("ayubi@email.com");
-  cy.get('[name="password"]').type("admin123");
+  cy.get('[name="email"]').type("zohaib@email.com");
+  cy.get('[name="password"]').type("zohaib12");
   cy.contains("Log In").click();
   //cy.wait(3000)
 });

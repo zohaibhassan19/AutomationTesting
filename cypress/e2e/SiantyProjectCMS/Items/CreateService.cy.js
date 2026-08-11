@@ -1,7 +1,7 @@
 describe("Items", () => {
 
   // Creating Random data
-  const randomName = Array.from({ length: 6 }, () =>String.fromCharCode(65 + Math.floor(Math.random() * 26)),).join("");
+  const randomName = `Service${Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
   const randomNumber = Math.floor(Math.random() * 9000000000 + 1000000000).toString();
   const randomArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
 
@@ -71,9 +71,26 @@ describe("Items", () => {
     // Submit form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
     cy.contains("Service created successfully");
+
+    // =============== Status change & Delete method ========================= //
+    
+    cy.get("#styled-input").type(randomName);
+    cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+    cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",).click({ force: true });
+    cy.contains("Delete").click({ force: true });
+    cy.get(".MuiDialogActions-root > .MuiButton-contained").click({force: true,});
   });
 
-  // ================================================================================================================= //
+  // ============================ External Service =================================== //
 
   it.only("Create External Service", () => {
     // Call login Function
@@ -143,5 +160,23 @@ describe("Items", () => {
     // Submit form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
     cy.contains("Service created successfully");
+
+    // =============== Status change & Delete method ========================= //
+    
+    cy.get("#styled-input").type(randomName);
+    cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
+      cy.get('.MuiDialogActions-root > .MuiButton-contained') .click({ multiple: true,force: true });
+      cy.contains('Status changed successfully')
+
+    cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",).click({ force: true });
+    cy.contains("Delete").click({ force: true });
+    cy.get(".MuiDialogActions-root > .MuiButton-contained").click({force: true,});
+
   });
 });
