@@ -3,6 +3,8 @@ describe("Vehicles", () => {
    // Creating Random data
   const randomName = `Make${Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
   const randomArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
+  const randomUpdatedName = `Make${Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
+  const randomUpdatedArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
 
   it("Create Model", () => {
     // Call login Function
@@ -34,9 +36,32 @@ describe("Vehicles", () => {
     // Submit Form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
 
+     // ======================== Edit Model ================================= //
+
+    cy.get("#styled-input").type(randomName);
+     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search   
+     cy.get('.MuiTableBody-root > :nth-child(1) > :nth-child(2)') .click({ multiple: true,force: true });
+
+     // Fill form
+
+    // Make dropdown
+    cy.contains("Make *")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(2).click({ force: true });
+    cy.get('[name="title"]').type(randomUpdatedName);
+    cy.get('[name="secondaryTitle"]').type(randomUpdatedArabicName);
+    cy.get('.PrivateSwitchBase-input') .check();
+
+    // Submit Form
+    cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+    cy.get('.flex > :nth-child(1) > .MuiButtonBase-root') .click({ force: true });
+
     // =============== Status change & Delete method ========================= //
     
-    cy.get("#styled-input").type(randomName);
+    cy.get("#styled-input",{ timeout: 10000 }).type(randomUpdatedName);
     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
 
     cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });

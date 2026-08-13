@@ -2,6 +2,8 @@ describe("Vehicles", () => {
 
   // Creating Random data
   const randomName = `Status${Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
+  const randomName1 = `Status${Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
+
 
   it("Create Vehicle Status", () => {
     // Call login Function
@@ -23,15 +25,30 @@ describe("Vehicles", () => {
     cy.get('[name="name"]').type(randomName);
     cy.get('.MuiInputBase-root > [name="description"]').type("Automation");
     cy.get(".PrivateSwitchBase-input").check();
-    cy.wait(200);
-    cy.get(".PrivateSwitchBase-input").check();
 
     // Submit Form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
 
-    // =============== Status change not available in listing :  Delete method ========================= //
+    // =================== Edit Status ============================== //
     
     cy.get("#styled-input").type(randomName);
+     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search   
+     cy.get('.MuiTableBody-root > :nth-child(1) > :nth-child(2)') .click({ multiple: true,force: true });
+
+     // Fill form
+
+    cy.get('[name="name"]').type(randomName1);
+    cy.get('.MuiInputBase-root > [name="description"]').type("Automation updated");
+    cy.get(".PrivateSwitchBase-input").check();
+
+    // Submit Form
+    cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+        cy.get('.flex > :nth-child(1) > .MuiButtonBase-root') .click({ force: true });
+
+
+    // =============== Status change not available in listing :  Delete method ========================= //
+    
+    cy.get("#styled-input").type(randomName1);
     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
 
     cy.get(":nth-child(1) > .MuiTableCell-paddingNone > .MuiBox-root > #long-button",).click({ force: true });

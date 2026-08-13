@@ -2,6 +2,8 @@ describe("Vehicles", () => {
   // Creating Random data
   const randomName = `Type${Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
   const randomArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
+  const randomName1 = `Type${Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
+  const randomArabicName1 = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
 
   it("Create Vehicle Type", () => {
     // Call login Function
@@ -27,9 +29,26 @@ describe("Vehicles", () => {
     // Submit Form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
 
+    // ======================== Edit Model ================================= //
+
+    cy.get("#styled-input").type(randomName);
+     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search   
+     cy.get('.MuiTableBody-root > :nth-child(1) > :nth-child(2)') .click({ multiple: true,force: true });
+
+      // Fill form
+
+    cy.get('[name="title"]').type(randomName1);
+    cy.get('[name="secondaryTitle"]').type(randomArabicName);
+    cy.get('[name="multiplier"]').type(5);
+    cy.get("#importfile > input").selectFile
+    ("cypress/fixtures/PNG Logo.png");
+
+    // Submit Form
+    cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+
     // =============== Status change & Delete method ========================= //
     
-    cy.get("#styled-input").type(randomName);
+    cy.get("#styled-input").type(randomName1);
     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
 
      cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });

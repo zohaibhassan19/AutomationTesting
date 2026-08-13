@@ -4,8 +4,11 @@ describe("Vehicles", () => {
   const randomPlateNumber = `PlateNo${Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
   const ArabicPlateNumber = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
   const randomVIN = Array.from({ length: 17 },() => "ABCDEFGHJKLMNPRSTUVWXYZ0123456789"[Math.floor(Math.random() * 33)],).join("");
+  const randomPlateNumber1 = `PlateNo${Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
+  const ArabicPlateNumber1 = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
+  const randomVIN1 = Array.from({ length: 17 },() => "ABCDEFGHJKLMNPRSTUVWXYZ0123456789"[Math.floor(Math.random() * 33)],).join("");
 
-  it("Register Vehicles with customer", () => {
+  it.only("Register Vehicles with customer", () => {
     // Call login Function
     cy.loginCMS();
     cy.wait(400);
@@ -144,9 +147,146 @@ describe("Vehicles", () => {
     cy.get(":nth-child(3) > :nth-child(1) > :nth-child(2) > .MuiStack-root > .MuiFormControl-root > .MuiInputBase-root > .MuiInputAdornment-root > .MuiButtonBase-root",).click({ force: true });
     cy.get('button[role="gridcell"]').contains("30").click({ force: true });
 
+    // Submit Form
+    cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+
+    // =============== Edit vehicle ========================= //
+
+     cy.get("#styled-input").type(randomPlateNumber);
+     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search   
+     cy.get('.MuiTableBody-root > :nth-child(1) > :nth-child(2)') .click({ multiple: true,force: true });
+
+    // Fill form
+    cy.get('[name="plateNumber"]').click({ force: true });
+    cy.get(".css-eku0kx > .MuiTypography-root").click({ force: true });
+
+    cy.get('[name="code"]')
+      .scrollIntoView().should("be.visible").clear()
+      .type(randomPlateNumber1);
+    cy.get(".flex > .MuiButtonBase-root").click();
+    cy.get('[name="secondaryPlateNumber"]').scrollIntoView()
+      .should("be.visible").clear()
+      .type(ArabicPlateNumber1);
+    cy.get('[name="vin"]').scrollIntoView()
+      .should("be.visible").clear()
+      .type(randomVIN1);
+    cy.get('[name="color"]').scrollIntoView().should("be.visible").clear().type("blue");
+    cy.get('[name="odometer"]').scrollIntoView().should("be.visible").clear().type(11);
+    cy.get('[name="avgDailyFuelConsumption"]').scrollIntoView()
+      .should("be.visible").clear()
+      .type(100);
+    cy.get('[name="seatingCapacity"]').scrollIntoView()
+      .should("be.visible").clear()
+      .type(4);
+    cy.get('[name="fleetCode"]').scrollIntoView()
+      .should("be.visible").clear()
+      .type("code script");
+    cy.get('[name="tyreInformation"]').scrollIntoView()
+      .should("be.visible").clear()
+      .type("tyre information");
+    cy.get('[name="notes"]').scrollIntoView()
+      .should("be.visible").clear()
+      .type("once");
+
+    // Dropdown Fields
+
+    cy.contains("Customer *")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.contains("State")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.contains("Vehicle Type *")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.contains("Make *")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.contains("Model *")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.contains("Model *")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.contains("Year")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.contains("Transmission Type")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.contains("Fuel Type")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.contains("Registration Status")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.contains("Insurance Status")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.contains("Insurance Company")
+      .closest(".commonSelect")
+      .find("input")
+      .first()
+      .click({ force: true });
+    cy.get('[class*="-option"]').eq(1).click({ force: true });
+
+    cy.get(":nth-child(21) > :nth-child(1) > :nth-child(2) > .MuiStack-root > .MuiFormControl-root > .MuiInputBase-root > .MuiInputAdornment-root > .MuiButtonBase-root",).click({ force: true });
+    cy.get('button[role="gridcell"]').contains("30").click();
+
+    cy.get(":nth-child(3) > :nth-child(1) > :nth-child(2) > .MuiStack-root > .MuiFormControl-root > .MuiInputBase-root > .MuiInputAdornment-root > .MuiButtonBase-root",).click({ force: true });
+    cy.get('button[role="gridcell"]').contains("30").click({ force: true });
+
+    // Submit Form
+    cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+    cy.get('.flex > :nth-child(1) > .MuiButtonBase-root') .click({ force: true });
+
     // =============== Status change & Delete method ========================= //
-    
-    cy.get("#styled-input").type(randomPlateNumber);
+    cy.wait(4000)
+    cy.get("#styled-input", {timeout:1500}).type(randomPlateNumber1);
     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
 
      cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });
@@ -164,9 +304,9 @@ describe("Vehicles", () => {
     });
   
 
-  // ==================================================================================================================== //
+  // --------------------------------------------------------------------------------------------------------------------- //
 
-  it.only("Register Vehicles with company existng Driver", () => {
+  it("Register Vehicles with company existng Driver", () => {
 
     // Call login Function
     cy.loginCMS();
@@ -316,6 +456,8 @@ describe("Vehicles", () => {
 
     // Submit Form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+
+
 
     // =============== Status change & Delete method ========================= //
     

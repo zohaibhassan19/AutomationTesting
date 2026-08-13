@@ -80,8 +80,9 @@ class POSMainFlowPage {
   selectMakeAndModel() {
     cy.wait(2000);
     cy.get('.ant-form-item-control-input-content > #vehicle_makeId').click({ force: true, multiple: true });
-    cy.get('[data-row-key="68"] > .p-0 > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > #field > .ant-radio-button-wrapper').click({ force: true, multiple: true });
-    cy.get('[data-row-key="614"] > .p-0 > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > #field > .ant-radio-button-wrapper').click({ force: true, multiple: true });
+    cy.get('.ant-radio-button-input').first().click({ force: true, multiple: true });
+    cy.wait(700)
+    cy.get('.ant-radio-button-input').first().click({ force: true, multiple: true });
     cy.wait(1000);
   }
 
@@ -116,9 +117,9 @@ class POSMainFlowPage {
   selectPart() {
     cy.get('.ant-dropdown-menu-item').eq(2).click({ multiple: true });
     cy.wait(500);
-    cy.get(':nth-child(1) > .ant-card > .ant-card-body > :nth-child(1) > .ant-form-item > .ant-row > .ant-col > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-checkbox-wrapper > .ant-checkbox > .ant-checkbox-inner').click({ force: true, multiple: true });
+    cy.get('.ant-checkbox-input').first().click({ force: true });
     cy.get('.ant-col.flex > .ant-btn-primary').click({ force: true, multiple: true });
-    cy.wait(2000);
+    cy.wait(4000)
   }
 
   // Work Order

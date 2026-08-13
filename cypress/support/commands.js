@@ -40,9 +40,9 @@ Cypress.Commands.add("loginPOS", () => {
   cy.clearLocalStorage();
   cy.wait(500);
   cy.visit("http://dev1.sianty.com/#/login");
-  cy.get("#username").type("ayubi@email.com");
-  cy.get("#password").type("admin123");
-  cy.get("#stationId").type("10");
+  cy.get("#username").type("zohaib@email.com");
+  cy.get("#password").type("zohaib12");
+  cy.get("#stationId").type("73");
   cy.contains("Login").click();
   //cy.wait(3000)
 });

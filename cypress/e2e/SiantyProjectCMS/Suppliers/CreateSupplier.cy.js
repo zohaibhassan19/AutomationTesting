@@ -11,6 +11,13 @@ describe("Suppliers", () => {
   const max = Math.pow(10, length) - 1;
   const phoneNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
+  const UpdatedName = `Supplier${Array.from({ length: 3 }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("")}`;
+  const UpdatedArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28)),).join("");
+  const UpdatedEmail = `test_${Math.random().toString(36).substring(2, 8)}@gmail.com`;
+  const UpdatedTaxNumber = `Tax_${Math.random().toString(36).substring(2, 4)}`;
+  const UpdatedCode = Array.from({ length: 5 },() => chars[Math.floor(Math.random() * chars.length)],).join("");
+  const UpdatedphoneNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
   it("Create Supplier", () => {
     // Call login Function
     cy.loginCMS();
@@ -39,9 +46,29 @@ describe("Suppliers", () => {
     // Submit Form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
 
+   // ======================= Edit Supplier ==================== //
+
+     cy.get("#styled-input").type(randomName);
+     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search   
+     cy.get('.MuiTableBody-root > :nth-child(1) > :nth-child(2)') .click({ multiple: true,force: true });
+
+     // Fill form
+
+    cy.get('[name="title"]') .clear() .type(UpdatedName);
+    cy.get('[name="secondaryTitle"]') .clear() .type(UpdatedArabicName);
+    cy.get('[name="vendorCode"]') .clear() .type(UpdatedCode);
+    cy.get('[name="phoneNumber"]') .clear() .type(UpdatedphoneNumber);
+    cy.get('[name="email"]') .clear() .type(UpdatedEmail);
+    cy.get('[name="address"]') .clear() .type("Updated address");
+    cy.get('[name="taxNumber"]') .clear() .type(UpdatedTaxNumber);
+
+    // Submit Form
+    cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+    cy.get('.flex > :nth-child(1) > .MuiButtonBase-root') .click({ force: true });
+
    // =============== Status change & Delete method ========================= //
     
-    cy.get("#styled-input").type(randomName);
+    cy.get("#styled-input",{timeout:1500}).type(UpdatedName);
     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
 
      cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });

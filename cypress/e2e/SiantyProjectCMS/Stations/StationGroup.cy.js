@@ -1,7 +1,9 @@
 describe("Stations", () => {
   // Creating Random data
-  const randomName = `Group-${Math.random().toString(36).substring(2, 3).toUpperCase()}`;
+  const randomName = `Group-${Math.random().toString(36).substring(2, 5).toUpperCase()}`;
   const randomArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28))).join("");
+  const UpdatedName = `Group-${Math.random().toString(36).substring(2, 5).toUpperCase()}`;
+  const UpdatedArabicName = Array.from({ length: 6 }, () =>String.fromCharCode(0x0621 + Math.floor(Math.random() * 28))).join("");
 
   it("Create Station Group", () => {
     // Call login Function
@@ -9,7 +11,7 @@ describe("Stations", () => {
     cy.wait(400);
 
     // Visit Create form
-    cy.contains("Stations").trigger("mouseover").click({ force: true });
+    cy.get('[aria-label="Stations"]').trigger("mouseover").click({ force: true });
 
     cy.contains(".MuiListItemButton-root", "Station's Group")
       .trigger("mouseover")
@@ -23,9 +25,25 @@ describe("Stations", () => {
     // Submit form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
 
+    // ======================== Edit Station Group ================================= //
+
+    cy.get("#styled-input").type(randomName);
+     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search   
+     cy.get('.MuiTableBody-root > .MuiTableRow-root > :nth-child(1)') .click({ multiple: true,force: true });
+
+     // Fill form
+    cy.get('[name="title"]') .clear() .type(UpdatedName);
+    cy.get('[name="secondaryTitle"]') .clear() .type(UpdatedArabicName);
+
+    // Submit form
+    cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
+        cy.get('.flex > :nth-child(1) > .MuiButtonBase-root') .click({ force: true });
+
+
+
    // =============== Status change & Delete method ========================= //
     
-    cy.get("#styled-input").type(randomName);
+    cy.get("#styled-input").type(UpdatedName);
     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
 
      cy.get('.cursor-pointer.font-medium') .click({ multiple: true,force: true });

@@ -22,7 +22,8 @@ describe("Customers", () => {
     // Submit Form
     cy.get(".formSubmitBtn > .MuiButtonBase-root").click();
 
-    // Status change & Delete method
+    // ========================= Status change & Delete method ============================== //
+    
     cy.get("#styled-input").type(randomTitle);
     cy.get(".MuiGrid-root > .text-white").click(); // Click on submit button for search
 
