@@ -28,9 +28,9 @@ Cypress.Commands.add("loginCMS", () => {
   cy.clearCookies();
   cy.clearLocalStorage();
   cy.wait(500);
-  cy.visit("http://dev2.sianty.com/login");
-  cy.get('[name="email"]').type("zohaib@email.com");
-  cy.get('[name="password"]').type("zohaib12");
+  cy.visit(Cypress.env("cmsUrl"));
+  cy.get('[name="email"]').type(Cypress.env('cmsEmail'));
+  cy.get('[name="password"]').type(Cypress.env("cmsPassword"));
   cy.contains("Log In").click();
   //cy.wait(3000)
 });
@@ -39,10 +39,10 @@ Cypress.Commands.add("loginPOS", () => {
   cy.clearCookies();
   cy.clearLocalStorage();
   cy.wait(500);
-  cy.visit("http://dev1.sianty.com/#/login");
-  cy.get("#username").type("zohaib@email.com");
-  cy.get("#password").type("zohaib12");
-  cy.get("#stationId").type("73");
+  cy.visit(Cypress.env('posUrl'));
+  cy.get("#username").type(Cypress.envtype(posEmail));
+  cy.get("#password").type(Cypress.env(posPassword));
+  cy.get("#stationId").type(Cypress.envtype(StationId));
   cy.contains("Login").click();
   //cy.wait(3000)
 });
