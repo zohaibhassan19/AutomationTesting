@@ -18,6 +18,13 @@ class POSMainFlowPage {
     cy.get('a[href="#/vehicles"]').click({ force: true, multiple: true });
   }
 
+  OpenDetailPage(){
+  cy.get('#platenumber') .type("7976K")
+  cy.wait(1000)
+  cy.get('.ant-row.items-center > :nth-child(1) > .ant-row > .flex') .click({ force: true, multiple: true });
+  
+  }
+
   clickAddVehicle() {
     cy.get('.flex > .ant-btn').click({ force: true, multiple: true });
   }
@@ -93,7 +100,10 @@ class POSMainFlowPage {
 
   // Job Card
   createJobCard() {
-    cy.get('.ant-btn-primary').click({ force: true, multiple: true });
+  
+  cy.wait(1000)
+    cy.get('.ant-btn-primary') .click({ force: true, multiple: true });
+  
   }
 
   enterOdometer(value) {
@@ -119,7 +129,7 @@ class POSMainFlowPage {
     cy.wait(500);
     cy.get('.ant-checkbox-input').first().click({ force: true });
     cy.get('.ant-col.flex > .ant-btn-primary').click({ force: true, multiple: true });
-    cy.wait(4000)
+    cy.wait(2000)
   }
 
   // Work Order
@@ -145,7 +155,9 @@ class POSMainFlowPage {
     cy.contains('.ant-menu-item', 'Payments').click({ force: true, multiple: true });
     cy.get(':nth-child(2) > .flex > .ant-btn').click({ force: true, multiple: true });
     cy.get('#referenceNo').type(refNo);
-    cy.get('#rc_select_28').click({ force: true, multiple: true });
+    cy.wait(1000)
+    cy.contains(".ant-form-item-label", "Accounts")
+      .next().find(".ant-select-selector").click();
     cy.get('[class*="-option"]').eq(0).click({ force: true, multiple: true });
     cy.get('.justify-between > .ant-btn').click({ force: true, multiple: true });
     cy.wait(1000);
@@ -158,14 +170,15 @@ class POSMainFlowPage {
     cy.get('#inventoryForm_reason').type('Automation remarks');
     cy.get('.ant-checkbox-inner').click({ force: true, multiple: true });
     cy.get('.ant-table-footer > .flex > .ant-btn').click({ force: true, multiple: true });
-    cy.wait(4000);
+    cy.wait(2000);
   }
 
   // Return Cash
   createReturnCash(refNo) {
     cy.contains('.ant-menu-item', 'Return Cash').click({ force: true, multiple: true });
     cy.get(':nth-child(2) > .flex > .ant-btn').click({ force: true, multiple: true });
-    cy.get('#rc_select_35').click({ force: true, multiple: true });
+    cy.contains(".ant-form-item-label", "Accounts")
+      .next().find(".ant-select-selector").click();
     cy.get('[class*="-option"]').eq(0).click({ force: true, multiple: true });
     cy.wait(500);
     cy.get('#paymentMode').closest('.ant-select').find('.ant-select-selector').click({ force: true });
